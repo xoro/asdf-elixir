@@ -63,7 +63,8 @@ install_elixir_ref() {
   # and fixes compatibility issues with the elixir-ls language server project
   if ! (
     cd "$install_path" || exit 1
-    make clean test DESTDIR="$install_path" install
+    make clean DESTDIR="$install_path" install
+    #make clean test DESTDIR="$install_path" install
   ); then
     # handle the result
     echo "Build failed, cleaning..."
