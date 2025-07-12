@@ -15,6 +15,7 @@ install_elixir() {
     tmp_download_dir="$TMPDIR"
   fi
 
+  echo "DEBUG: install_type=<$install_type>"
   if [ "$install_type" = "version" ]; then
     install_elixir_version "$version" "$install_path" "$tmp_download_dir"
   else
@@ -64,7 +65,12 @@ install_elixir_ref() {
   if ! (
     cd "$install_path" || exit 1
     make clean DESTDIR="$install_path" install
-    #make clean test DESTDIR="$install_path" install
+    echo "DEBUG: ASDF_ELIXIR_MAKE_TEST=<$ASDF_ELIXIR_MAKE_TEST>"
+    if [ "$ASDF_ELIXIR_MAKE_TEST" = "no" ]; then
+      make clean DESTDIR="$install_path" install
+    else
+      make clean test DESTDIR="$install_path" install
+    fi
   ); then
     # handle the result
     echo "Build failed, cleaning..."
