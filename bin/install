@@ -67,8 +67,10 @@ install_elixir_ref() {
     make clean DESTDIR="$install_path" install
     echo "DEBUG: ASDF_ELIXIR_MAKE_TEST=<$ASDF_ELIXIR_MAKE_TEST>"
     if [ "$ASDF_ELIXIR_MAKE_TEST" = "no" ]; then
+      echo "DEBUG: Building without test"
       make clean DESTDIR="$install_path" install
     else
+      echo "DEBUG: Building with test"
       make clean test DESTDIR="$install_path" install
     fi
   ); then
